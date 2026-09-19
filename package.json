@@ -1,0 +1,17 @@
+{
+  "name": "lyfe-chess",
+  "version": "1.0.0",
+  "description": "",
+  "main": "test.mjs",
+  "type": "module",
+  "scripts": {
+    "test": "node test.mjs"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "chess.js": "^1.4.0",
+    "stockfish": "^19.0.0"
+  }
+}

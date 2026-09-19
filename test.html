@@ -1,0 +1,25 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Stockfish test</title></head>
+<body>
+<pre id="out">Loading engine...</pre>
+<script type="module">
+import { Chess } from './node_modules/chess.js/dist/esm/chess.js';
+
+const out = document.getElementById('out');
+const log = (s) => { out.textContent += '\n' + s; console.log(s); };
+
+const game = new Chess();
+log('chess.js loaded. Legal opening moves: ' + game.moves().length);
+
+const worker = new Worker('node_modules/stockfish/bin/stockfish-19-single.js');
+worker.onmessage = (e) => {
+  const line = typeof e.data === 'string' ? e.data : e.data;
+  if (line.startsWith('bestmove')) {
+    log('SUCCESS — Stockfish computed a real move: ' + line.split(' ')[1]);
+  }
+};
+worker.postMessage('uci');
+worker.postMessage('position startpos');
+worker.postMessage('go depth 12');
+</script>
+</body></html>
